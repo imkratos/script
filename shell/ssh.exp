@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+set timeout 30
+set commond [lindex $argv 0]
+set username "admin"
+set ip "172.16.1.71"
+set password "admin"
+spawn ssh $username@$ip
+expect "password:"
+send "$password\r"
+send "$commond\r"
+send "exit\r"
+expect eof

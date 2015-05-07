@@ -1,0 +1,15 @@
+#!/usr/bin/expect
+set timeout 30
+set product [lindex $argv 0]
+set path [lindex $argv 1]
+set port [lindex $argv 2]
+set username "admin"
+set ip "172.16.1.71"
+set password "admin"
+set product_path "/opt/tomcat-$product-$port/webapps/"
+spawn scp ${path}puhui-$product-20140109.war $username@$ip:${product_path}puhui-$product.war
+expect "password:"
+send "$password\r"
+send "exit\r"
+#interact
+expect eof

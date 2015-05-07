@@ -1,0 +1,18 @@
+#!/usr/bin/expect
+set timeout 30
+set product [lindex $argv 0]
+set path [lindex $argv 1]
+set username "admin"
+set ip "172.16.1.71"
+set password "admin"
+spawn ssh  $username@$ip
+expect "password:"
+send "$password\r"
+send "pwd\r"
+# 停止服务
+send "jps -v | grep tomcat-$product|grep -v 'grep'| awk '{print \$1}'|xargs kill -9\r"
+# 删除代码
+send "rm -rf $path*\r"
+send "exit\r"
+#interact
+expect eof
